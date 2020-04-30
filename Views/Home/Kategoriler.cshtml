@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Soru_Cevap.Models.Kategori>
+@foreach (var kategori in Model)
+{
+    <a href="#">@kategori.KategoriAd (@kategori.Soru.Count)</a>
+    
+}
