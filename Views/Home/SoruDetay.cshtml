@@ -1,0 +1,50 @@
+﻿@model Soru_Cevap.Models.Soru
+    @{
+        ViewBag.Title = "Index";
+    }
+    <section class="container main-content">
+        <div class="row">
+            <div class="col-md-9">
+                <article class="question single-question question-type-normal">
+                    <h2>@Model.Baslik</h2>
+                    <div class="question-inner">
+                        <div class="clearfix"></div>
+                        <div class="question-desc">
+                             <h5>@Model.Icerik</h5>
+                        </div>
+                        <span class="question-date"><i class="icon-time"></i>@Model.Tarih.Value.ToShortDateString()</span>
+                        <span class="question-comment"><i class="icon-comment"></i>@Model.Cevap.Count</span>
+                        <span class="question-view"><i class="icon-user"></i>@Model.Uye.KullaniciAd</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </article>
+                </div>
+            </div>
+    </section>
+
+    <div id="respond" class="comment-respond page-content clearfix ml-4">
+        <div class="boxedtitle page-title"><h2>Yorum Yaz</h2></div>
+        <form action="" method="post" id="commentform" class="comment-form">
+            <div id="respond-textarea">
+                <p>
+                    <label class="required" for="comment">Yorum<span>*</span></label>
+                    <textarea id="comment" name="comment" aria-required="true" cols="20" rows="8"></textarea>
+                </p>
+            </div>
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Yorum Yaz" class="button small color">
+            </p>
+        </form>
+    </div>
+
+    <div id="commentlist" class="page-content ml-4">
+        <ol class="commentlist clearfix">
+            <div id="cevaplar">
+                @Html.Action("Cevaplar", "Home", new { soruId = Model.SoruID })
+            </div>
+        </ol>
+    </div>
+    
+    
+    
+

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Soru_Cevap.Models.Cevap>
+
+@foreach (var cevap in Model)
+{
+    <li class="comment">
+        <div class="comment-body clearfix">
+            <div class="comment-text">
+                <div class="author clearfix">
+                    <div class="comment-author">@cevap.Uye.KullaniciAd</div>
+                    <div class="comment-meta">
+                        <div class="date"><i class="icon-time"></i>@cevap.Tarih</div>
+                    </div>
+                </div>
+                <div class="text">
+                    <h6>@cevap.Icerik</h6>
+                </div>
+            </div>
+        </div>
+    </li>
+}

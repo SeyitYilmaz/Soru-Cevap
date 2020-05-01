@@ -9,11 +9,20 @@
                 {
                     <article class="question question-type-normal">
                         <h2>
-                            <a href="#">@soru.Baslik</a>
+                            <a href="~/Home/SoruDetay/@soru.SoruID">@soru.Baslik</a>
                         </h2>
                         <div class="question-inner">
                             <div class="clearfix"></div>
-                            <p class="question-desc">@soru.Icerik</p>
+
+                            @if (soru.Icerik.Length > 200)
+                            {
+                                <p class="question-desc">@Html.Raw(soru.Icerik.Substring(0, 200))...</p>
+                            }
+                            else
+                            {
+                                <p class="question-desc">@soru.Icerik</p>
+                            }
+
                             <span class="question-date"><i class="icon-time"></i>@soru.Tarih.Value.ToShortDateString()</span>
                             <span class="question-comment"><a href="#"><i class="icon-comment"></i>@soru.Cevap.Count</a></span>
                             <span class="question-view"><i class="icon-user"></i>@soru.Uye.KullaniciAd</span>

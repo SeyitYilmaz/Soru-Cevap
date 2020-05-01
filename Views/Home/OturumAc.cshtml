@@ -1,0 +1,39 @@
+﻿@model Soru_Cevap.ViewModel.uyeModel
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="my-4">
+                Oturum Aç
+            </h1>
+
+
+            @using (Html.BeginForm("OturumAc", "Home", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
+            {
+
+                @Html.LabelFor(m => m.KullaniciAd)
+                @Html.TextBoxFor(m => m.KullaniciAd, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.KullaniciAd, null, new { @class = "text-danger" })
+                <br />
+                <br />
+                <br />
+                @Html.LabelFor(m => m.Sifre)
+                @Html.PasswordFor(m => m.Sifre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Sifre, null, new { @class = "text-danger" })
+                <br />
+                <br />
+                <br />
+
+                <input type="submit" value="Giriş" class="btn btn-success" />
+                @Html.ActionLink("Yeni Üye", "UyeOl", null, new { @class = "btn btn-primary" })
+
+            }
+
+            <br />
+            @if (ViewBag.hata != null)
+            {
+                <div class="alert alert-danger">@ViewBag.hata</div>
+            }
+
+        </div>
+    </div>
+
+

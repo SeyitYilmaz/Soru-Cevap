@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Soru_Cevap.Models;
+using Soru_Cevap.ViewModel;
 
 namespace Soru_Cevap.Controllers
 {
@@ -21,6 +22,66 @@ namespace Soru_Cevap.Controllers
         {
             List<Kategori> kategori = db.Kategori.ToList();
             return PartialView(kategori);
+        }
+
+        public ActionResult KategoriSoru(int? id)
+        {
+            Kategori kategori = db.Kategori.Where(s => s.KategoriID == id).SingleOrDefault();
+            if (kategori == null)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.kategori = kategori.KategoriAd;
+
+            List<Soru> soru = db.Soru.Where(s => s.KategoriID == id).ToList();
+            if (soru.Count == 0)
+            {
+                ViewBag.kayityok = "Henüz bu kategoride soru sorulmamış.";
+            }
+            return View(soru);
+        }
+
+        public ActionResult SoruDetay(int? id)
+        {
+            Soru soru = db.Soru.Where(s => s.SoruID == id).SingleOrDefault();
+            if (soru == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(soru);
+        }
+
+        public PartialViewResult Cevaplar(int? SoruId)
+        {
+            List<Cevap> cevap = db.Cevap.Where(s => s.SoruID == SoruId).ToList();
+            return PartialView(cevap);
+        }
+
+        public ActionResult OturumAc(uyeModel model, string returnUrl)
+        {
+            Uye uye = db.Uye.Where(m => m.KullaniciAd == model.KullaniciAd && m.Sifre == model.Sifre).SingleOrDefault();
+            if (uye!=null)
+            {
+                Session["uyeOturum"] = true;
+                Session["uyeID"] = uye.UyeID;
+                Session["uyeKulAd"] = uye.KullaniciAd;
+                Session["uyeAdmin"] = uye.UyeAdmin;
+
+                if (returnUrl == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Redirect(returnUrl);
+                }
+            }
+            else
+            {
+                ViewBag.hata = "Kullanıcı Adı veya Parola Geçersizdir.";
+                return View();
+            }
+            return View();
         }
     }
 }
