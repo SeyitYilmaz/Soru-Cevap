@@ -216,6 +216,7 @@
     <Content Include="Views\Home\SoruDetay.cshtml" />
     <Content Include="Views\Home\Cevaplar.cshtml" />
     <Content Include="Views\Home\OturumAc.cshtml" />
+    <Content Include="Views\Home\UyeOl.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

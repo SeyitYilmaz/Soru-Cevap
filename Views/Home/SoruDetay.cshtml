@@ -1,26 +1,31 @@
 ﻿@model Soru_Cevap.Models.Soru
-    @{
-        ViewBag.Title = "Index";
-    }
-    <section class="container main-content">
-        <div class="row">
-            <div class="col-md-9">
-                <article class="question single-question question-type-normal">
-                    <h2>@Model.Baslik</h2>
-                    <div class="question-inner">
-                        <div class="clearfix"></div>
-                        <div class="question-desc">
-                             <h5>@Model.Icerik</h5>
-                        </div>
-                        <span class="question-date"><i class="icon-time"></i>@Model.Tarih.Value.ToShortDateString()</span>
-                        <span class="question-comment"><i class="icon-comment"></i>@Model.Cevap.Count</span>
-                        <span class="question-view"><i class="icon-user"></i>@Model.Uye.KullaniciAd</span>
-                        <div class="clearfix"></div>
+<section class="container main-content">
+    <div class="row">
+        <div class="col-md-9">
+            <article class="question single-question question-type-normal">
+                <h2>@Model.Baslik</h2>
+                <div class="question-inner">
+                    <div class="clearfix"></div>
+                    <div class="question-desc">
+                        <h5>@Model.Icerik</h5>
                     </div>
-                </article>
+                    <span class="question-category"><a href="#"><i class="icon-folder-close"></i>@Model.Kategori.KategoriAd</a></span>
+                    <span class="question-date"><i class="icon-time"></i>@Model.Tarih.Value.ToShortDateString()</span>
+                    <span class="question-comment"><i class="icon-comment"></i>@Model.Cevap.Count</span>
+                    <span class="question-view"><i class="icon-user"></i>@Model.Uye.KullaniciAd</span>
+                    <div class="clearfix"></div>
                 </div>
-            </div>
-    </section>
+            </article>
+        </div>
+    </div>
+</section>
+
+@if (Session["uyeOturum"] == null)
+{
+    <div class="alet alert-info">Yorum Yapabilmek İçin Üye Girişi Yapınız.</div>
+}
+else
+{
 
     <div id="respond" class="comment-respond page-content clearfix ml-4">
         <div class="boxedtitle page-title"><h2>Yorum Yaz</h2></div>
@@ -36,15 +41,15 @@
             </p>
         </form>
     </div>
+}
+<div id="commentlist" class="page-content ml-4">
+    <ol class="commentlist clearfix">
+        <div id="cevaplar">
+            @Html.Action("Cevaplar", "Home", new { soruId = Model.SoruID })
+        </div>
+    </ol>
+</div>
 
-    <div id="commentlist" class="page-content ml-4">
-        <ol class="commentlist clearfix">
-            <div id="cevaplar">
-                @Html.Action("Cevaplar", "Home", new { soruId = Model.SoruID })
-            </div>
-        </ol>
-    </div>
-    
-    
-    
+
+
 

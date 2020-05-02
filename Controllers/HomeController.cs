@@ -83,5 +83,43 @@ namespace Soru_Cevap.Controllers
             }
             return View();
         }
+
+        public ActionResult OturumKapat(string returnUrl)
+        {
+            Session.Abandon();
+            return Redirect(returnUrl);
+        }
+
+        public ActionResult UyeOl()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UyeOl(uyeModel model)
+        {
+            if (db.Uye.Where(m=>m.KullaniciAd == model.KullaniciAd).Count()>0)
+            {
+                ViewBag.hata = "Girilen Kullannıcı Adı Kaydı Mevcut";
+                return View();
+            }
+
+            Uye yeni = new Uye();
+            yeni.Ad = model.Ad;
+            yeni.Soyad = model.Soyad;
+            yeni.KullaniciAd = model.KullaniciAd;
+            yeni.Email = model.Email;
+            yeni.Sifre = model.Sifre;
+            db.Uye.Add(yeni);
+            db.SaveChanges();
+
+            Uye uye = db.Uye.OrderByDescending(m => m.UyeID).FirstOrDefault();
+            Session["uyeOturum"] = true;
+            Session["uyeID"] = uye.UyeID;
+            Session["uyeKulAd"] = uye.KullaniciAd;
+            Session["uyeAdmin"] = uye.UyeAdmin;
+
+            return RedirectToAction("Index");
+        }
     }
 }
