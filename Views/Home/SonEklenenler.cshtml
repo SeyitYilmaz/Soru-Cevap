@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Soru_Cevap.Models.Soru>
+@foreach (var soru in Model)
+{
+    <a href="~/Home/KategoriSoru/@soru.SoruID"><h3>@soru.Baslik</h3></a>
+    if (soru.Icerik.Length > 50)
+    {
+        <p>@Html.Raw(soru.Icerik.Substring(0, 50))...</p>
+    }
+    else
+    {
+        <p>@soru.Icerik</p>
+    }
+    <div class="clear"></div><span>@soru.Tarih.Value.ToShortDateString()</span>
+    <div class="clearfix"></div>
+    <br />
+}
+

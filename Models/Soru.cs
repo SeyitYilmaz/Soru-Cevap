@@ -28,9 +28,9 @@ namespace Soru_Cevap.Models
         public Nullable<int> UyeID { get; set; }
         public Nullable<int> Okunma { get; set; }
     
-        public virtual Kategori Kategori { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cevap> Cevap { get; set; }
+        public virtual Kategori Kategori { get; set; }
         public virtual Uye Uye { get; set; }
     }
 }

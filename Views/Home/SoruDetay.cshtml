@@ -12,7 +12,7 @@
                     <span class="question-category"><a href="#"><i class="icon-folder-close"></i>@Model.Kategori.KategoriAd</a></span>
                     <span class="question-date"><i class="icon-time"></i>@Model.Tarih.Value.ToShortDateString()</span>
                     <span class="question-comment"><i class="icon-comment"></i>@Model.Cevap.Count</span>
-                    <span class="question-view"><i class="icon-user"></i>@Model.Uye.KullaniciAd</span>
+                    <span class="question-view"><i class="icon-user"></i><a href="~/HOME/UyeDetay/@Model.UyeID">@Model.Uye.KullaniciAd</a></span>
                     <div class="clearfix"></div>
                 </div>
             </article>
@@ -22,7 +22,8 @@
 
 @if (Session["uyeOturum"] == null)
 {
-    <div class="alet alert-info">Yorum Yapabilmek İçin Üye Girişi Yapınız.</div>
+    <div class="alet alert-info">Yorum Yapabilmek İçin @Html.ActionLink("Üye Girişi","OturumAc","Home",
+                                                      new { returnUrl = Request.RawUrl},null) Yapınız!</div>
 }
 else
 {
@@ -32,14 +33,15 @@ else
         <form action="" method="post" id="commentform" class="comment-form">
             <div id="respond-textarea">
                 <p>
-                    <label class="required" for="comment">Yorum<span>*</span></label>
-                    <textarea id="comment" name="comment" aria-required="true" cols="20" rows="8"></textarea>
+                    <label class="required" for="comment">Cevap<span>*</span></label>
+                    <textarea id="txtCevap" cols="20" rows="8"></textarea>
                 </p>
             </div>
             <p class="form-submit">
-                <input name="submit" type="submit" id="submit" value="Yorum Yaz" class="button small color">
+                <button type="button" id="btnCevapYaz" class="btn btn-danger">Cevap Yaz</button>
             </p>
         </form>
+        <div id="cevapSonuc"></div>
     </div>
 }
 <div id="commentlist" class="page-content ml-4">
@@ -49,6 +51,74 @@ else
         </div>
     </ol>
 </div>
+
+@section scripts{
+    <script>
+        $(function (){
+            $("#btnCevapYaz").click(function () {
+                var cevap = $("#txtCevap").val();
+                if (cevap == "") {
+                    $("#cevapSonuc").html("Cevap Yazınız!");
+                    $("#cevapSonuc").removeClass();
+                    $("#cevapSonuc").addClass("alert alert-danger");
+                    $cevapGetir();
+                    
+                }
+                else {
+                    $.ajax({
+                        url: "/Home/CevapYaz",
+                        type: "POST",
+                        data: { cevap: cevap, SoruId:@Model.SoruID},
+                        dataType: "json",
+                        success: function (data) {
+                            $("#cevapSonuc").html("Yorum Eklendi!");
+                            $("#cevapSonuc").removeClass();
+                            $("#cevapSonuc").addClass("alert alert-success");
+                            window.location.reload();
+                        }
+                    });
+                }
+
+            });
+
+            $(document).ready(function () {
+                $(".btnCevapSil").click(function () {
+                    var cID = $(this).attr("data-id");
+                    $.cevapSil(cID);
+                    window.location.reload();
+                });
+            });
+
+            $.cevapSil = function (cID) {
+                $.ajax({
+                        url: "/Home/CevapSil",
+                        data: {cevapID:cID},
+                        type: "POST",
+                        dataType: "json",
+                    success: function (data) {
+                        $("#cevapSonuc").html("Cevap Silindi!");
+                        $("#cevapSonuc").removeClass();
+                        $("#cevapSonuc").addClass("alert alert-success");
+                        $cevapGetir();
+
+                        }
+                });
+            }
+
+            $.cevapGetir = function () {
+                $.ajax({
+                    url: "/Home/Cevaplar",
+                    type: "POST",
+                    data: {SoruId:@Model.SoruID},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#cevaplar").html(data);
+                    }
+                });
+            }
+        });
+    </script>
+    }
 
 
 

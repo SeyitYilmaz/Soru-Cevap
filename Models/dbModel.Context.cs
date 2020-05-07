@@ -25,10 +25,10 @@ namespace Soru_Cevap.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Cevap> Cevap { get; set; }
         public virtual DbSet<Kategori> Kategori { get; set; }
         public virtual DbSet<Soru> Soru { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Uye> Uye { get; set; }
-        public virtual DbSet<Cevap> Cevap { get; set; }
     }
 }

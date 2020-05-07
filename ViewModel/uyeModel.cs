@@ -25,6 +25,9 @@ namespace Soru_Cevap.ViewModel
         [Required(ErrorMessage = "Mailinizi Giriniz")]
         [Display(Name = "Mailiniz")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Fotoğraf Seçiniz")]
+        [Display(Name = "Fotoğraf")]
+        public HttpPostedFileBase Foto { get; set; }
         public int UyeAdmin { get; set; }
 
     }

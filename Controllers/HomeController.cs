@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -66,6 +68,7 @@ namespace Soru_Cevap.Controllers
                 Session["uyeID"] = uye.UyeID;
                 Session["uyeKulAd"] = uye.KullaniciAd;
                 Session["uyeAdmin"] = uye.UyeAdmin;
+                Session["uyeFoto"] = uye.Foto;
 
                 if (returnUrl == null)
                 {
@@ -103,13 +106,30 @@ namespace Soru_Cevap.Controllers
                 ViewBag.hata = "Girilen Kullannıcı Adı Kaydı Mevcut";
                 return View();
             }
-
             Uye yeni = new Uye();
+            if (model.Foto != null && model.Foto.ContentLength > 0)
+            {
+                string dosya = Guid.NewGuid().ToString();
+                string uzanti = Path.GetExtension(model.Foto.FileName).ToLower();
+
+                if (uzanti != ".jpg" && uzanti != ".jpeg" && uzanti != ".png")
+                {
+                    ModelState.AddModelError("Foto", "Dosya Uzantısı JPG,JPEG veya PNG Olmalıdır!");
+                    return View(model);
+                }
+
+                string dosyaAdi = dosya + uzanti;
+                model.Foto.SaveAs(Server.MapPath("~/Content/UyeFoto/" + dosyaAdi));
+                yeni.Foto = dosyaAdi;
+            }
+
+            
             yeni.Ad = model.Ad;
             yeni.Soyad = model.Soyad;
             yeni.KullaniciAd = model.KullaniciAd;
             yeni.Email = model.Email;
             yeni.Sifre = model.Sifre;
+            yeni.UyeAdmin = 0;
             db.Uye.Add(yeni);
             db.SaveChanges();
 
@@ -118,8 +138,54 @@ namespace Soru_Cevap.Controllers
             Session["uyeID"] = uye.UyeID;
             Session["uyeKulAd"] = uye.KullaniciAd;
             Session["uyeAdmin"] = uye.UyeAdmin;
+            Session["uyeFoto"] = uye.Foto;
 
             return RedirectToAction("Index");
+        }
+        public JsonResult CevapYaz(string cevap, int SoruId)
+        {
+            if (cevap != null && Session["uyeID"] != null)
+            {
+                int uyeId = Convert.ToInt32(Session["uyeID"].ToString());
+                db.Cevap.Add(new Cevap()
+                {
+                    Icerik = cevap,
+                    UyeID = uyeId,
+                    SoruID = SoruId,
+                    Tarih = DateTime.Now
+                    
+                });
+                db.SaveChanges();
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CevapSil(int cevapID)
+        {
+            if (Session["uyeID"] != null)
+            {
+                var silinenCevap = db.Cevap.Where(y => y.CevapID== cevapID).FirstOrDefault();
+                db.Cevap.Remove(silinenCevap);
+                db.SaveChanges();
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UyeDetay(int? id)
+        {
+            Uye uye = db.Uye.Where(x => x.UyeID == id).SingleOrDefault();
+            if (uye == null )
+            {
+                RedirectToAction("Index");
+            }
+            return View(uye);
+        }
+
+        public ActionResult SonEklenenler()
+        {
+            List<Soru> sorular = db.Soru.OrderByDescending(s => s.SoruID).Take(5).ToList();
+
+            return PartialView(sorular);
         }
     }
 }

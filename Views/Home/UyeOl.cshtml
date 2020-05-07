@@ -6,7 +6,7 @@
         </h1>
 
 
-        @using (Html.BeginForm("UyeOl", "Home", FormMethod.Post, new { enctype = "multipart-form-data" }))
+        @using (Html.BeginForm("UyeOl", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.LabelFor(m => m.KullaniciAd)
             @Html.TextBoxFor(m => m.KullaniciAd, new { @class = "form-control" })
@@ -28,6 +28,10 @@
             @Html.PasswordFor(m => m.Sifre, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Sifre, null, new { @class = "text-danger" })
             <br />
+            @Html.LabelFor(m => m.Foto)
+            @Html.TextBoxFor(m => m.Foto, new { type = "file", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Foto, null, new { @class = "text-danger" })
+            <br />
 
             <input type="submit" value="Üye Ol" class="btn btn-success" />
             @Html.ActionLink("Oturum Aç", "OturumAc", null, new { @class = "btn btn-primary" })
@@ -35,6 +39,7 @@
         }
 
         <br />
+        <div class="col-md-6"><div class="user-profile-img"><img id="uyeFoto" width="60" height="60" src=""></div></div>
         @if (ViewBag.hata != null)
         {
             <div class="alert alert-danger">@ViewBag.hata</div>
@@ -42,5 +47,25 @@
 
     </div>
 </div>
+@section scripts {
+    <script>
+        $("#Foto").change(function () {
+            readURL(this);
+        });
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#uyeFoto').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    }
 
 

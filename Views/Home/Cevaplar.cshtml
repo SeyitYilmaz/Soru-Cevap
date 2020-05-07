@@ -6,15 +6,20 @@
         <div class="comment-body clearfix">
             <div class="comment-text">
                 <div class="author clearfix">
-                    <div class="comment-author">@cevap.Uye.KullaniciAd</div>
+                    <div class="comment-author"><a href="~/HOME/UyeDetay/@cevap.UyeID">@cevap.Uye.KullaniciAd</a></div>
                     <div class="comment-meta">
                         <div class="date"><i class="icon-time"></i>@cevap.Tarih</div>
                     </div>
                 </div>
                 <div class="text">
                     <h6>@cevap.Icerik</h6>
+                    @if (Session["uyeID"] != null && cevap.UyeID == Convert.ToInt32(Session["uyeID"].ToString()))
+                    {
+                        <button data-id="@cevap.CevapID" class="btn btn-danger btnCevapSil">Sil</button>
+                    }
                 </div>
             </div>
         </div>
     </li>
+    
 }

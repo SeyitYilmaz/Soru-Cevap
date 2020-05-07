@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d09abf91675b41ddb2d45ada9bd9b1f7" Name="Diagram1">
-        <EntityTypeShape EntityType="dbSoruCevapModel.Kategori" Width="1.5" PointX="3.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbSoruCevapModel.Soru" Width="1.5" PointX="3.5" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbSoruCevapModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbSoruCevapModel.Uye" Width="1.5" PointX="1.75" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbSoruCevapModel.Cevap" Width="1.5" PointX="1.75" PointY="4.125" IsExpanded="true" />
-        <AssociationConnector Association="dbSoruCevapModel.FK_Soru_Kategori" ManuallyRouted="false" />
-        <AssociationConnector Association="dbSoruCevapModel.FK_Cevap_Soru" ManuallyRouted="false" />
-        <AssociationConnector Association="dbSoruCevapModel.FK_Soru_Uye" ManuallyRouted="false" />
+      <Diagram DiagramId="29d6917374cd483b94cab463024a55f8" Name="Diagram1">
+        <EntityTypeShape EntityType="dbSoruCevapModel.Cevap" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.Kategori" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.Soru" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.Uye" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="dbSoruCevapModel.FK_Cevap_Soru1" ManuallyRouted="false" />
         <AssociationConnector Association="dbSoruCevapModel.FK_Cevap_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="dbSoruCevapModel.FK_Soru_Kategori" ManuallyRouted="false" />
+        <AssociationConnector Association="dbSoruCevapModel.FK_Soru_Uye1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,13 +5,11 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="dbSoruCevapModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Cevap">
           <Key>
             <PropertyRef Name="CevapID" />
           </Key>
-          <Property Name="CevapID" Type="int" Nullable="false" />
+          <Property Name="CevapID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Icerik" Type="nvarchar" MaxLength="500" />
           <Property Name="UyeID" Type="int" />
           <Property Name="SoruID" Type="int" />
@@ -57,8 +55,9 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
           <Property Name="Soyad" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="UyeAdmin" Type="int" />
+          <Property Name="Foto" Type="nchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK_Cevap_Soru">
+        <Association Name="FK_Cevap_Soru1">
           <End Role="Soru" Type="Self.Soru" Multiplicity="0..1" />
           <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
           <ReferentialConstraint>
@@ -94,7 +93,7 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Soru_Uye">
+        <Association Name="FK_Soru_Uye1">
           <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
           <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
           <ReferentialConstraint>
@@ -107,20 +106,12 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="dbSoruCevapModelStoreContainer">
+          <EntitySet Name="Cevap" EntityType="Self.Cevap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Soru" EntityType="Self.Soru" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uye" EntityType="Self.Uye" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Cevap" EntityType="Self.Cevap" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Cevap].[CevapID] AS [CevapID], 
-    [Cevap].[Icerik] AS [Icerik], 
-    [Cevap].[UyeID] AS [UyeID], 
-    [Cevap].[SoruID] AS [SoruID], 
-    [Cevap].[Tarih] AS [Tarih]
-    FROM [dbo].[Cevap] AS [Cevap]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Cevap_Soru" Association="Self.FK_Cevap_Soru">
+          <AssociationSet Name="FK_Cevap_Soru1" Association="Self.FK_Cevap_Soru1">
             <End Role="Soru" EntitySet="Soru" />
             <End Role="Cevap" EntitySet="Cevap" />
           </AssociationSet>
@@ -132,7 +123,7 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
             <End Role="Kategori" EntitySet="Kategori" />
             <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
-          <AssociationSet Name="FK_Soru_Uye" Association="Self.FK_Soru_Uye">
+          <AssociationSet Name="FK_Soru_Uye1" Association="Self.FK_Soru_Uye1">
             <End Role="Uye" EntitySet="Uye" />
             <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
@@ -142,6 +133,18 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbSoruCevapModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cevap">
+          <Key>
+            <PropertyRef Name="CevapID" />
+          </Key>
+          <Property Name="CevapID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Icerik" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UyeID" Type="Int32" />
+          <Property Name="SoruID" Type="Int32" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Soru" Relationship="Self.FK_Cevap_Soru1" FromRole="Cevap" ToRole="Soru" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Cevap_Uye" FromRole="Cevap" ToRole="Uye" />
+        </EntityType>
         <EntityType Name="Kategori">
           <Key>
             <PropertyRef Name="KategoriID" />
@@ -161,9 +164,9 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
           <Property Name="KategoriID" Type="Int32" />
           <Property Name="UyeID" Type="Int32" />
           <Property Name="Okunma" Type="Int32" />
+          <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_Soru1" FromRole="Soru" ToRole="Cevap" />
           <NavigationProperty Name="Kategori" Relationship="Self.FK_Soru_Kategori" FromRole="Soru" ToRole="Kategori" />
-          <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_Soru" FromRole="Soru" ToRole="Cevap" />
-          <NavigationProperty Name="Uye" Relationship="Self.FK_Soru_Uye" FromRole="Soru" ToRole="Uye" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Soru_Uye1" FromRole="Soru" ToRole="Uye" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -186,34 +189,11 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
           <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UyeAdmin" Type="Int32" />
-          <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_Uye" FromRole="Uye" ToRole="Soru" />
+          <Property Name="Foto" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_Uye" FromRole="Uye" ToRole="Cevap" />
+          <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_Uye1" FromRole="Uye" ToRole="Soru" />
         </EntityType>
-        <EntityType Name="Cevap">
-          <Key>
-            <PropertyRef Name="CevapID" />
-          </Key>
-          <Property Name="CevapID" Type="Int32" Nullable="false" />
-          <Property Name="Icerik" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="UyeID" Type="Int32" />
-          <Property Name="SoruID" Type="Int32" />
-          <Property Name="Tarih" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Soru" Relationship="Self.FK_Cevap_Soru" FromRole="Cevap" ToRole="Soru" />
-          <NavigationProperty Name="Uye" Relationship="Self.FK_Cevap_Uye" FromRole="Cevap" ToRole="Uye" />
-        </EntityType>
-        <Association Name="FK_Soru_Kategori">
-          <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
-          <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Kategori">
-              <PropertyRef Name="KategoriID" />
-            </Principal>
-            <Dependent Role="Soru">
-              <PropertyRef Name="KategoriID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cevap_Soru">
+        <Association Name="FK_Cevap_Soru1">
           <End Role="Soru" Type="Self.Soru" Multiplicity="0..1" />
           <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
           <ReferentialConstraint>
@@ -222,18 +202,6 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
             </Principal>
             <Dependent Role="Cevap">
               <PropertyRef Name="SoruID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Soru_Uye">
-          <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
-          <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Uye">
-              <PropertyRef Name="UyeID" />
-            </Principal>
-            <Dependent Role="Soru">
-              <PropertyRef Name="UyeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -249,27 +217,51 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Soru_Kategori">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
+          <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Soru">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Soru_Uye1">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
+          <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeID" />
+            </Principal>
+            <Dependent Role="Soru">
+              <PropertyRef Name="UyeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="dbSoruCevapEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cevap" EntityType="Self.Cevap" />
           <EntitySet Name="Kategori" EntityType="Self.Kategori" />
           <EntitySet Name="Soru" EntityType="Self.Soru" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Uye" EntityType="Self.Uye" />
-          <EntitySet Name="Cevap" EntityType="Self.Cevap" />
-          <AssociationSet Name="FK_Soru_Kategori" Association="Self.FK_Soru_Kategori">
-            <End Role="Kategori" EntitySet="Kategori" />
-            <End Role="Soru" EntitySet="Soru" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cevap_Soru" Association="Self.FK_Cevap_Soru">
+          <AssociationSet Name="FK_Cevap_Soru1" Association="Self.FK_Cevap_Soru1">
             <End Role="Soru" EntitySet="Soru" />
             <End Role="Cevap" EntitySet="Cevap" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Soru_Uye" Association="Self.FK_Soru_Uye">
-            <End Role="Uye" EntitySet="Uye" />
-            <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
           <AssociationSet Name="FK_Cevap_Uye" Association="Self.FK_Cevap_Uye">
             <End Role="Uye" EntitySet="Uye" />
             <End Role="Cevap" EntitySet="Cevap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Soru_Kategori" Association="Self.FK_Soru_Kategori">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Soru" EntitySet="Soru" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Soru_Uye1" Association="Self.FK_Soru_Uye1">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -278,6 +270,17 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbSoruCevapModelStoreContainer" CdmEntityContainer="dbSoruCevapEntities">
+          <EntitySetMapping Name="Cevap">
+            <EntityTypeMapping TypeName="dbSoruCevapModel.Cevap">
+              <MappingFragment StoreEntitySet="Cevap">
+                <ScalarProperty Name="CevapID" ColumnName="CevapID" />
+                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
+                <ScalarProperty Name="UyeID" ColumnName="UyeID" />
+                <ScalarProperty Name="SoruID" ColumnName="SoruID" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Kategori">
             <EntityTypeMapping TypeName="dbSoruCevapModel.Kategori">
               <MappingFragment StoreEntitySet="Kategori">
@@ -320,17 +323,7 @@ warning 6002: The table/view 'dbSoruCevap.dbo.Cevap' does not have a primary key
                 <ScalarProperty Name="Soyad" ColumnName="Soyad" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UyeAdmin" ColumnName="UyeAdmin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cevap">
-            <EntityTypeMapping TypeName="dbSoruCevapModel.Cevap">
-              <MappingFragment StoreEntitySet="Cevap">
-                <ScalarProperty Name="CevapID" ColumnName="CevapID" />
-                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
-                <ScalarProperty Name="UyeID" ColumnName="UyeID" />
-                <ScalarProperty Name="SoruID" ColumnName="SoruID" />
-                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
