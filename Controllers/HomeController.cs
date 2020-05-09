@@ -193,6 +193,10 @@ namespace Soru_Cevap.Controllers
         [HttpPost]
         public ActionResult SoruEkle(soruModel model)
         {
+            if (Session["uyeID"] == null)
+            {
+                return RedirectToAction("OturumAc");
+            }
             int uyeID = Convert.ToInt32(Session["uyeID"].ToString());
             if (db.Soru.Where(m=>m.Baslik == model.Baslik).Count() > 0)
             {

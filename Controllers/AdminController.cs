@@ -16,6 +16,15 @@ namespace Soru_Cevap.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            List<Soru> sorular = db.Soru.ToList();
+            ViewBag.soruSay = sorular.Count;
+
+            List<Uye> uyeler = db.Uye.ToList();
+            ViewBag.uyeSay = uyeler.Count;
+
+            List<Kategori> kategoriler = db.Kategori.ToList();
+            ViewBag.katSay = kategoriler.Count;
+
             return View();
         }
 
@@ -243,6 +252,25 @@ namespace Soru_Cevap.Controllers
             db.SaveChanges();
             ViewBag.sonuc = "Uye Guncellendi";
             return View();
+        }
+
+        public ActionResult UyeSil(int? id)
+        {
+            if (db.Soru.Where(m => m.UyeID == id).Count() > 0)
+            {
+                return RedirectToAction("Uyeler/1");
+            }
+
+            Uye uye = db.Uye.Where(m => m.UyeID == id).SingleOrDefault();
+            if (uye != null)
+            {
+                List<Cevap> yorumlar = db.Cevap.Where(m => m.UyeID == id).ToList();
+                db.Cevap.RemoveRange(yorumlar);
+                db.Uye.Remove(uye);
+                db.SaveChanges();
+                return RedirectToAction("Uyeler/2");
+            }
+            return RedirectToAction("Uyeler");
         }
     }
 
