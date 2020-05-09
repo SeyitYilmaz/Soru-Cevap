@@ -55,9 +55,8 @@
           <Property Name="Soyad" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="UyeAdmin" Type="int" />
-          <Property Name="Foto" Type="nchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK_Cevap_Soru1">
+        <Association Name="FK_Cevap_Soru">
           <End Role="Soru" Type="Self.Soru" Multiplicity="0..1" />
           <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
           <ReferentialConstraint>
@@ -69,7 +68,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cevap_Uye">
+        <Association Name="FK_Cevap_Uye1">
           <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
           <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
           <ReferentialConstraint>
@@ -93,7 +92,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Soru_Uye1">
+        <Association Name="FK_Soru_Uye">
           <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
           <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
           <ReferentialConstraint>
@@ -111,11 +110,11 @@
           <EntitySet Name="Soru" EntityType="Self.Soru" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uye" EntityType="Self.Uye" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Cevap_Soru1" Association="Self.FK_Cevap_Soru1">
+          <AssociationSet Name="FK_Cevap_Soru" Association="Self.FK_Cevap_Soru">
             <End Role="Soru" EntitySet="Soru" />
             <End Role="Cevap" EntitySet="Cevap" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cevap_Uye" Association="Self.FK_Cevap_Uye">
+          <AssociationSet Name="FK_Cevap_Uye1" Association="Self.FK_Cevap_Uye1">
             <End Role="Uye" EntitySet="Uye" />
             <End Role="Cevap" EntitySet="Cevap" />
           </AssociationSet>
@@ -123,7 +122,7 @@
             <End Role="Kategori" EntitySet="Kategori" />
             <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
-          <AssociationSet Name="FK_Soru_Uye1" Association="Self.FK_Soru_Uye1">
+          <AssociationSet Name="FK_Soru_Uye" Association="Self.FK_Soru_Uye">
             <End Role="Uye" EntitySet="Uye" />
             <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
@@ -142,8 +141,8 @@
           <Property Name="UyeID" Type="Int32" />
           <Property Name="SoruID" Type="Int32" />
           <Property Name="Tarih" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Soru" Relationship="Self.FK_Cevap_Soru1" FromRole="Cevap" ToRole="Soru" />
-          <NavigationProperty Name="Uye" Relationship="Self.FK_Cevap_Uye" FromRole="Cevap" ToRole="Uye" />
+          <NavigationProperty Name="Soru" Relationship="Self.FK_Cevap_Soru" FromRole="Cevap" ToRole="Soru" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Cevap_Uye1" FromRole="Cevap" ToRole="Uye" />
         </EntityType>
         <EntityType Name="Kategori">
           <Key>
@@ -164,9 +163,9 @@
           <Property Name="KategoriID" Type="Int32" />
           <Property Name="UyeID" Type="Int32" />
           <Property Name="Okunma" Type="Int32" />
-          <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_Soru1" FromRole="Soru" ToRole="Cevap" />
+          <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_Soru" FromRole="Soru" ToRole="Cevap" />
           <NavigationProperty Name="Kategori" Relationship="Self.FK_Soru_Kategori" FromRole="Soru" ToRole="Kategori" />
-          <NavigationProperty Name="Uye" Relationship="Self.FK_Soru_Uye1" FromRole="Soru" ToRole="Uye" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Soru_Uye" FromRole="Soru" ToRole="Uye" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -189,11 +188,10 @@
           <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UyeAdmin" Type="Int32" />
-          <Property Name="Foto" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_Uye" FromRole="Uye" ToRole="Cevap" />
-          <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_Uye1" FromRole="Uye" ToRole="Soru" />
+          <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_Uye1" FromRole="Uye" ToRole="Cevap" />
+          <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_Uye" FromRole="Uye" ToRole="Soru" />
         </EntityType>
-        <Association Name="FK_Cevap_Soru1">
+        <Association Name="FK_Cevap_Soru">
           <End Role="Soru" Type="Self.Soru" Multiplicity="0..1" />
           <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
           <ReferentialConstraint>
@@ -205,7 +203,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cevap_Uye">
+        <Association Name="FK_Cevap_Uye1">
           <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
           <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
           <ReferentialConstraint>
@@ -229,7 +227,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Soru_Uye1">
+        <Association Name="FK_Soru_Uye">
           <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
           <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,11 +245,11 @@
           <EntitySet Name="Soru" EntityType="Self.Soru" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Uye" EntityType="Self.Uye" />
-          <AssociationSet Name="FK_Cevap_Soru1" Association="Self.FK_Cevap_Soru1">
+          <AssociationSet Name="FK_Cevap_Soru" Association="Self.FK_Cevap_Soru">
             <End Role="Soru" EntitySet="Soru" />
             <End Role="Cevap" EntitySet="Cevap" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cevap_Uye" Association="Self.FK_Cevap_Uye">
+          <AssociationSet Name="FK_Cevap_Uye1" Association="Self.FK_Cevap_Uye1">
             <End Role="Uye" EntitySet="Uye" />
             <End Role="Cevap" EntitySet="Cevap" />
           </AssociationSet>
@@ -259,7 +257,7 @@
             <End Role="Kategori" EntitySet="Kategori" />
             <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
-          <AssociationSet Name="FK_Soru_Uye1" Association="Self.FK_Soru_Uye1">
+          <AssociationSet Name="FK_Soru_Uye" Association="Self.FK_Soru_Uye">
             <End Role="Uye" EntitySet="Uye" />
             <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
@@ -323,7 +321,6 @@
                 <ScalarProperty Name="Soyad" ColumnName="Soyad" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UyeAdmin" ColumnName="UyeAdmin" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

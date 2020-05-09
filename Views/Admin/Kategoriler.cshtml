@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Soru_Cevap.Models.Kategori>
+@{ 
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Kategoriler</h2><hr />
+        @if (ViewBag.hata != null)
+        {
+            <div class="alert alert-danger">@ViewBag.hata</div>
+        }
+        @if (ViewBag.sonuc != null)
+        {
+            <div
+                 class="alert alert-success">@ViewBag.sonuc</div>
+        }
+        <br />
+        @Html.ActionLink("Kategori Ekle", "KategoriEkle", null, new { @class = "btn btn-info" })
+        <br />
+        <br />
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Kategori Adı</th>
+                <th>Düzenle</th>
+                <th>Sil</th>
+            </tr>
+            @foreach (var kat in Model)
+            {
+                <tr>
+                    <td>@kat.KategoriID</td>
+                    <td>@kat.KategoriAd</td>
+                    <td><a href="~/Admin/KategoriDuzenle/@kat.KategoriID" class="btn btn-warning">Düzenle</a></td>
+                    <td><a href="~/Admin/KategoriSil/@kat.KategoriID" class="btn btn-danger">Sil</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+

@@ -1,12 +1,14 @@
 ﻿@model Soru_Cevap.ViewModel.uyeModel
+@{
+    ViewBag.Title = "UyeEkle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Üye Ekle</h2>
+<hr>
 <div class="row">
     <div class="col-md-6">
-        <h1 class="my-4">
-            Üye Ol
-        </h1>
-
-
-        @using (Html.BeginForm("UyeOl", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("UyeEkle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.LabelFor(m => m.KullaniciAd)
             @Html.TextBoxFor(m => m.KullaniciAd, new { @class = "form-control" })
@@ -15,7 +17,7 @@
             @Html.LabelFor(m => m.Ad)
             @Html.TextBoxFor(m => m.Ad, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Ad, null, new { @class = "text-danger" })
-            <br />
+            <br /> 
             @Html.LabelFor(m => m.Soyad)
             @Html.TextBoxFor(m => m.Soyad, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Soyad, null, new { @class = "text-danger" })
@@ -24,13 +26,19 @@
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
             <br />
+
             @Html.LabelFor(m => m.Sifre)
             @Html.PasswordFor(m => m.Sifre, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Sifre, null, new { @class = "text-danger" })
             <br />
-
-            <input type="submit" value="Üye Ol" class="btn btn-success" />
-            @Html.ActionLink("Oturum Aç", "OturumAc", null, new { @class = "btn btn-primary" })
+            @Html.LabelFor(k => k.UyeAdmin)<br />
+            @Html.DropDownListFor(k => k.UyeAdmin, new List<SelectListItem>()
+       { 
+        new SelectListItem() {Text = "Üye", Value = "0"},
+        new SelectListItem() {Text = "Admin", Value = "1"} }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(k => k.UyeAdmin, null, new { @class = "text-danger" })
+            <br />
+            <input type="submit" value="Kaydet" class="btn btn-success" />
 
         }
 
@@ -39,6 +47,10 @@
         {
             <div class="alert alert-danger">@ViewBag.hata</div>
         }
-
+        @if (ViewBag.sonuc != null)
+        {
+            <div class="alert alert-success">@ViewBag.sonuc</div>
+        }
     </div>
+
 </div>

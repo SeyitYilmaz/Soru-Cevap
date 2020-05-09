@@ -1,0 +1,33 @@
+﻿@model Soru_Cevap.ViewModel.kategoriModel
+@{
+    ViewBag.Title = "KategoriEkle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Kategori Ekle</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("KategoriEkle", "Admin", FormMethod.Post))
+        {
+            @Html.DisplayFor(m => m.KategoriAd)
+            @Html.TextBoxFor(m => m.KategoriAd, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.KategoriAd, null, new { @class = "text-danger" })
+            <br />
+
+            <input type="submit" value="Kaydet" class="btn btn-success" />
+            <br />
+
+
+        }
+
+        @if (ViewBag.hata != null)
+        {
+            <div class="alert alert-danger">@ViewBag.hata</div>
+        }
+        @if (ViewBag.sonuc != null)
+        {
+            <div class="alert alert-success">@ViewBag.sonuc</div>
+        }
+    </div>
+</div>

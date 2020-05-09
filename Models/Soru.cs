@@ -23,10 +23,10 @@ namespace Soru_Cevap.Models
         public int SoruID { get; set; }
         public string Baslik { get; set; }
         public string Icerik { get; set; }
-        public Nullable<System.DateTime> Tarih { get; set; }
-        public Nullable<int> KategoriID { get; set; }
-        public Nullable<int> UyeID { get; set; }
-        public Nullable<int> Okunma { get; set; }
+        public System.DateTime Tarih { get; set; }
+        public int KategoriID { get; set; }
+        public int UyeID { get; set; }
+        public int Okunma { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cevap> Cevap { get; set; }

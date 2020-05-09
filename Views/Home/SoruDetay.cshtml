@@ -3,16 +3,29 @@
     <div class="row">
         <div class="col-md-9">
             <article class="question single-question question-type-normal">
-                <h2>@Model.Baslik</h2>
+                <div class="row">
+                    <div class="col-10">
+                        <h2>@Model.Baslik</h2>
+                    </div>
+                    <div class="col-2">
+                        @if (Session["uyeID"] != null && Model.UyeID == Convert.ToInt32(Session["uyeID"].ToString()))
+                        {
+                            @Html.ActionLink("Duzenle", "SoruDuzenle", new { id = Model.SoruID }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Sil", "SoruSil", new { id = Model.SoruID }, new { @class = "btn btn-danger" })
+                        }
+                    </div>
+                </div>
                 <div class="question-inner">
                     <div class="clearfix"></div>
                     <div class="question-desc">
                         <h5>@Model.Icerik</h5>
+                        <small>Bu soru @Model.Okunma kez görüntülendi</small>
                     </div>
                     <span class="question-category"><a href="#"><i class="icon-folder-close"></i>@Model.Kategori.KategoriAd</a></span>
-                    <span class="question-date"><i class="icon-time"></i>@Model.Tarih.Value.ToShortDateString()</span>
+                    <span class="question-date"><i class="icon-time"></i>@Model.Tarih.Date.ToShortDateString()</span>
                     <span class="question-comment"><i class="icon-comment"></i>@Model.Cevap.Count</span>
                     <span class="question-view"><i class="icon-user"></i><a href="~/HOME/UyeDetay/@Model.UyeID">@Model.Uye.KullaniciAd</a></span>
+                    
                     <div class="clearfix"></div>
                 </div>
             </article>
@@ -71,7 +84,7 @@ else
                         data: { cevap: cevap, SoruId:@Model.SoruID},
                         dataType: "json",
                         success: function (data) {
-                            $("#cevapSonuc").html("Yorum Eklendi!");
+                            $("#cevapSonuc").html("Cevap Eklendi!");
                             $("#cevapSonuc").removeClass();
                             $("#cevapSonuc").addClass("alert alert-success");
                             window.location.reload();

@@ -16,9 +16,9 @@ namespace Soru_Cevap.Models
     {
         public int CevapID { get; set; }
         public string Icerik { get; set; }
-        public Nullable<int> UyeID { get; set; }
-        public Nullable<int> SoruID { get; set; }
-        public Nullable<System.DateTime> Tarih { get; set; }
+        public int UyeID { get; set; }
+        public int SoruID { get; set; }
+        public System.DateTime Tarih { get; set; }
     
         public virtual Soru Soru { get; set; }
         public virtual Uye Uye { get; set; }

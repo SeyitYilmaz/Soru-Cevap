@@ -250,13 +250,6 @@
     <Content Include="Content\css\fontello\font\fontellodfd5.eot" />
     <Content Include="Content\css\fontello\font\fontellodfd5.ttf" />
     <Content Include="Content\css\fontello\font\fontellodfd5.woff" />
-    <EntityDeploy Include="Models\dbModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\dbModel.edmx.diagram">
-      <DependentUpon>dbModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\admin\.gitignore" />
     <Content Include="Content\admin\bower.json" />
     <Content Include="Content\admin\less\mixins.less" />
@@ -311,6 +304,13 @@
     <Content Include="Content\admin\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\admin\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\admin\vendor\font-awesome\scss\_variables.scss" />
+    <EntityDeploy Include="Models\dbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\dbModel.edmx.diagram">
+      <DependentUpon>dbModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -327,6 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Auth\BaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -363,6 +364,8 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\kategoriModel.cs" />
+    <Compile Include="ViewModel\soruModel.cs" />
     <Compile Include="ViewModel\uyeModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +394,16 @@
     <Content Include="Views\Home\SonEklenenler.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Kategoriler.cshtml" />
+    <Content Include="Views\Admin\KategoriEkle.cshtml" />
+    <Content Include="Views\Admin\KategoriDuzenle.cshtml" />
+    <Content Include="Views\Admin\Sorular.cshtml" />
+    <Content Include="Views\Home\SoruEkle.cshtml" />
+    <Content Include="Views\Home\SoruDuzenle.cshtml" />
+    <Content Include="Views\Admin\SoruDuzenle.cshtml" />
+    <Content Include="Views\Admin\Uyeler.cshtml" />
+    <Content Include="Views\Admin\UyeEkle.cshtml" />
+    <Content Include="Views\Admin\UyeDuzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

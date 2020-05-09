@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Soru_Cevap.Models.Uye>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Uyeler</h2><hr />
+        @if (ViewBag.hata != null)
+        {
+            <div class="alert alert-danger">@ViewBag.hata</div>
+        }
+        @if (ViewBag.sonuc != null)
+        {
+            <div class="alert alert-success">@ViewBag.sonuc</div>
+        }
+        <br />
+        @Html.ActionLink("Uye Ekle", "UyeEkle", null, new { @class = "btn btn-info" })
+        <br />
+        <br />
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Kullanici Adı</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>E-Posta</th>
+                <th>Yetki</th>
+                <th>Düzenle</th>
+                <th>Sil</th>
+            </tr>
+            @foreach (var uye in Model)
+            {
+                <tr>
+                    <td>@uye.UyeID</td>
+                    <td>@uye.KullaniciAd</td>
+                    <td>@uye.Ad</td>
+                    <td>@uye.Soyad</td>
+                    <td>@uye.Email</td>
+                    <td>
+                        @if (uye.UyeAdmin == 1)
+                        {
+                            <span>Admin</span>
+                        }
+                        else
+                        {
+                            <span>Üye</span>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Düzenle", "UyeDuzenle", new { id = uye.UyeID }, new { @class = "btn btn-warning" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sil", "UyeSil", new { id = uye.UyeID }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+

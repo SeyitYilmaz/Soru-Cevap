@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Soru Cevap Portalı</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -28,7 +28,7 @@
                     <a class="nav-link" href="#">Sorular</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Soru Sor</a>
+                    <a class="nav-link" href="~/Home/SoruEkle">Soru Sor</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -39,10 +39,12 @@
                 }
                 else
                 {
+
                     if (Session["uyeAdmin"].ToString() == "1")
                     {
-                        @Html.ActionLink("Admin Paneli", "Admin", new { returnUrl = Request.RawUrl }, new { @class = "btn btn-info my-2 my-sm-0" })
-
+                        <li class="nav-item">
+                            <a class="btn btn-info" href="~/Admin/Index">Admin Paneli</a>
+                        </li>
                     }
                     <a class="nav-link" href="~/Home/UyeDetay/@Session["uyeID"]">@Session["uyeKulAd"]</a>
 

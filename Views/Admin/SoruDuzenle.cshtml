@@ -1,0 +1,46 @@
+﻿@model Soru_Cevap.ViewModel.soruModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Soru Ekle</h2>
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("SoruDuzenle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.SoruID);
+
+            @Html.LabelFor(m => m.Baslik)
+            @Html.TextBoxFor(m => m.Baslik, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Baslik, null, new { @class = "text-danger" })
+            <br />
+
+            @Html.LabelFor(m => m.Icerik)
+            @Html.TextAreaFor(m => m.Icerik, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Icerik, null, new { @class = "text-danger" })
+            <br />
+
+            @Html.LabelFor(k => k.KategoriID)
+            @Html.DropDownListFor(k => k.KategoriID, Model.KategoriList, new { @class = "form-control" })
+            @Html.ValidationMessageFor(k => k.Icerik, null, new { @class = "text-danger" })
+            <br />
+
+            <input type="submit" value="Duzenle" class="btn btn-success" />
+            <br />
+
+        }
+
+        @if (ViewBag.hata != null)
+        {
+            <br />
+            <br />
+            <div class="alert alert-danger">@ViewBag.hata</div>
+        }
+        @if (ViewBag.sonuc != null)
+        {
+            <br />
+            <br />
+            <div class="alert alert-success">@ViewBag.sonuc</div>
+        }
+    </div>
+</div>

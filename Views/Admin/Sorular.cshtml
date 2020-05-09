@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Soru_Cevap.Models.Soru>
+@{
+    ViewBag.Title = "Sorular";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Sorular</h2><hr />
+            @if (ViewBag.hata != null)
+            {
+                <div class="alert alert-danger">@ViewBag.hata</div>
+            }
+            @if (ViewBag.sonuc != null)
+            {
+                <div class="alert alert-success">@ViewBag.sonuc</div>
+            }
+            <br />
+            @Html.ActionLink("Soru Ekle", "SoruEkle", null, new { @class = "btn btn-info" })
+            <br />
+            <br />
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Başlık</th>
+                    <th>Kategori</th>
+                    <th>Yazar</th>
+                    <th>Düzenle</th>
+                    <th>Sil</th>
+                </tr>
+                @foreach (var soru in Model)
+                {
+                    <tr>
+                        <td>@soru.SoruID</td>
+                        <td>@soru.Baslik</td>
+                        <td>@soru.Kategori.KategoriAd</td>
+                        <td>@soru.Uye.KullaniciAd</td>
+                        <td>@Html.ActionLink("Düzenle", "SoruDuzenle", new { id = soru.SoruID }, new { @class = "btn btn-warning" })</td>
+                        <td>@Html.ActionLink("Sil", "SoruSil", new { id = soru.SoruID }, new { @class = "btn btn-danger" })</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+

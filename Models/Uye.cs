@@ -27,8 +27,7 @@ namespace Soru_Cevap.Models
         public string Ad { get; set; }
         public string Soyad { get; set; }
         public string Email { get; set; }
-        public Nullable<int> UyeAdmin { get; set; }
-        public string Foto { get; set; }
+        public int UyeAdmin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cevap> Cevap { get; set; }

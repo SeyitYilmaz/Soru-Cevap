@@ -1,15 +1,19 @@
 ﻿@model Soru_Cevap.ViewModel.uyeModel
+@{
+    ViewBag.Title = "UyeDuzenle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Üye Düzenle</h2>
+<hr />
 <div class="row">
     <div class="col-md-6">
-        <h1 class="my-4">
-            Üye Ol
-        </h1>
-
-
-        @using (Html.BeginForm("UyeOl", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("UyeDuzenle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+            @Html.HiddenFor(m => m.UyeID)
+
             @Html.LabelFor(m => m.KullaniciAd)
-            @Html.TextBoxFor(m => m.KullaniciAd, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.KullaniciAd, new { disabled = "disabled", @class = "form-control" })
             @Html.ValidationMessageFor(m => m.KullaniciAd, null, new { @class = "text-danger" })
             <br />
             @Html.LabelFor(m => m.Ad)
@@ -24,13 +28,20 @@
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
             <br />
+
             @Html.LabelFor(m => m.Sifre)
             @Html.PasswordFor(m => m.Sifre, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Sifre, null, new { @class = "text-danger" })
             <br />
+            @Html.LabelFor(k => k.UyeAdmin)<br />
+            @Html.DropDownListFor(k => k.UyeAdmin, new List<SelectListItem>()
+    {
+        new SelectListItem() {Text = "Üye", Value = "0"},
+        new SelectListItem() {Text = "Admin", Value = "1"} }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(k => k.UyeAdmin, null, new { @class = "text-danger" })
+            <br />
 
-            <input type="submit" value="Üye Ol" class="btn btn-success" />
-            @Html.ActionLink("Oturum Aç", "OturumAc", null, new { @class = "btn btn-primary" })
+            <input type="submit" value="Kaydet" class="btn btn-success" />
 
         }
 
@@ -39,6 +50,10 @@
         {
             <div class="alert alert-danger">@ViewBag.hata</div>
         }
-
+        @if (ViewBag.sonuc != null)
+        {
+            <div class="alert alert-success">@ViewBag.sonuc</div>
+        }
     </div>
+
 </div>
