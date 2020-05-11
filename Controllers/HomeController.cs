@@ -62,6 +62,14 @@ namespace Soru_Cevap.Controllers
             return PartialView(cevap);
         }
 
+        public ActionResult OturumAc(string returnUrl)
+        {
+
+            ViewBag.returnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult OturumAc(uyeModel model, string returnUrl)
         {
             Uye uye = db.Uye.Where(m => m.KullaniciAd == model.KullaniciAd && m.Sifre == model.Sifre).SingleOrDefault();
