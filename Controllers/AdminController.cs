@@ -121,6 +121,45 @@ namespace Soru_Cevap.Controllers
 
             return View(sorular);
         }
+
+        public ActionResult SoruEkle()
+        {
+            soruModel model = getModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SoruEkle(soruModel model)
+        {
+            if (Session["uyeID"] == null)
+            {
+                return RedirectToAction("OturumAc");
+            }
+            int uyeID = Convert.ToInt32(Session["uyeID"].ToString());
+            if (db.Soru.Where(m => m.Baslik == model.Baslik).Count() > 0)
+            {
+                ViewBag.hata = "Benzer soru sitemizde mevcut. Lütfen sitemizi kontrol ediniz.";
+                model = getModel();
+                return View(model);
+            }
+            else
+            {
+                Soru soru = new Soru();
+                soru.Baslik = model.Baslik;
+                soru.KategoriID = model.KategoriID;
+                soru.Icerik = model.Icerik;
+                soru.Tarih = DateTime.Now;
+                soru.Okunma = 0;
+                soru.UyeID = uyeID;
+
+                db.Soru.Add(soru);
+                db.SaveChanges();
+
+                ViewBag.sonuc = "Soru Eklendi";
+                model = getModel();
+                return View(model);
+            }
+        }
         public ActionResult SoruDuzenle(int? id)
         {
             Soru soru = db.Soru.Where(m => m.SoruID == id).SingleOrDefault();
@@ -231,7 +270,7 @@ namespace Soru_Cevap.Controllers
             }
             uyeModel model = new uyeModel();
             model.UyeID = uye.UyeID;
-            model.KullaniciAd = model.KullaniciAd;
+            model.KullaniciAd = uye.KullaniciAd;
             model.Sifre = uye.Sifre;
             model.Ad = uye.Ad;
             model.Soyad = uye.Soyad;

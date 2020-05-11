@@ -404,6 +404,7 @@
     <Content Include="Views\Admin\Uyeler.cshtml" />
     <Content Include="Views\Admin\UyeEkle.cshtml" />
     <Content Include="Views\Admin\UyeDuzenle.cshtml" />
+    <Content Include="Views\Admin\SoruEkle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

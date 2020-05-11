@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="62c7c58341dc47dbaacb19cd4ac88c1f" Name="Diagram1">
-        <EntityTypeShape EntityType="dbSoruCevapModel.Cevap" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbSoruCevapModel.Kategori" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbSoruCevapModel.Soru" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.Cevap" Width="1.5" PointX="6.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.Kategori" Width="1.5" PointX="6.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.Soru" Width="1.5" PointX="9" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbSoruCevapModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbSoruCevapModel.Uye" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSoruCevapModel.Uye" Width="1.5" PointX="4.125" PointY="1.75" IsExpanded="true" />
         <AssociationConnector Association="dbSoruCevapModel.FK_Cevap_Soru" ManuallyRouted="false" />
         <AssociationConnector Association="dbSoruCevapModel.FK_Cevap_Uye1" ManuallyRouted="false" />
         <AssociationConnector Association="dbSoruCevapModel.FK_Soru_Kategori" ManuallyRouted="false" />

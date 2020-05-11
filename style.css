@@ -573,7 +573,7 @@ div[class*="slider_shadow"]:before, div[class^="header_shadow"] {
 	font-size: 13px;
 	font-style: italic;
 	resize: none;
-	height: 214px;
+	height: 500px;
 	text-indent: 38px;
 	line-height: 30px;
 	-moz-border-radius: 2px;
@@ -1800,7 +1800,7 @@ div[class*="slider_shadow"]:before, div[class^="header_shadow"] {
 }
 .full_width #respond textarea {
 	width: 922px;
-	height: 200px;
+	height: 450px;
 }
 /* Widgets */
 .widget {

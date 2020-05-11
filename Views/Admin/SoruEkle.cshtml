@@ -1,14 +1,16 @@
 ﻿@model Soru_Cevap.ViewModel.soruModel
 @{
+
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Soru Duzenle</h2>
+<h2>Soru Ekle</h2>
+<hr />
+
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm("SoruDuzenle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("SoruEkle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @Html.HiddenFor(m => m.SoruID);
 
             @Html.LabelFor(m => m.Baslik)
             @Html.TextBoxFor(m => m.Baslik, new { @class = "form-control" })
@@ -16,31 +18,25 @@
             <br />
 
             @Html.LabelFor(m => m.Icerik)
-            @Html.TextAreaFor(m => m.Icerik, new { @class = "form-control" })
+            @Html.TextAreaFor(m => m.Icerik, new { @id = "Icerik", @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Icerik, null, new { @class = "text-danger" })
             <br />
-
-            @Html.LabelFor(k => k.KategoriID)
+            @Html.LabelFor(k => k.KategoriID)<br />
             @Html.DropDownListFor(k => k.KategoriID, Model.KategoriList, new { @class = "form-control" })
-            @Html.ValidationMessageFor(k => k.Icerik, null, new { @class = "text-danger" })
-            <br />
+            @Html.ValidationMessageFor(k => k.KategoriID, null, new { @class = "text-danger" })<br />
 
-            <input type="submit" value="Duzenle" class="btn btn-success" />
             <br />
-
+            <input type="submit" value="Kaydet" class="btn btn-success" />
         }
-
-        @if (ViewBag.hata != null)
-        {
-            <br />
-            <br />
-            <div class="alert alert-danger">@ViewBag.hata</div>
-        }
+        <br />
         @if (ViewBag.sonuc != null)
         {
-            <br />
-            <br />
             <div class="alert alert-success">@ViewBag.sonuc</div>
+        }
+        @if (ViewBag.hata != null)
+        {
+            <div class="alert alert-danger">@ViewBag.hata</div>
         }
     </div>
 </div>
+
